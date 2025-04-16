@@ -1,14 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ProposalOrchestrator.WorkflowEngine;
+﻿using ProposalOrchestrator.Workflows;
 
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices((context, services) =>
-    {
-        services.AddTransient<Workflow>();
-    })
-    .Build();
-
-using var scope = host.Services.CreateScope();
-var workflow = scope.ServiceProvider.GetRequiredService<Workflow>();
+var workflow = CreditProposalWorkflow.Create();
 await workflow.RunAsync();
